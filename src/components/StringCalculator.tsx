@@ -8,7 +8,7 @@ export function add(input: string): number {
 		return Number(input);
 	}
 
-	const numbers = input.split(",").map(Number);
+	const numbers = input.split(/,|\n/).map(Number);
 
 	if (numbers.some(isNaN)) {
 		throw new Error("Invalid input");
