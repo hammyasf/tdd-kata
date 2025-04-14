@@ -15,4 +15,8 @@ describe("StringCalculator", () => {
 		expect(add("1,2")).toBe(3);
 	});
 
+	it ("should return the sum of multiple numbers separated by commas", () => {
+		expect(add("1,2,3,4")).toBe(10);
+	});
+	
 })
