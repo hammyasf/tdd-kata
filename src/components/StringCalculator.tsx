@@ -8,5 +8,11 @@ export function add(input: string): number {
 		return Number(input);
 	}
 
-	return 0;
+	const numbers = input.split(",").map(Number);
+
+	if (numbers.some(isNaN)) {
+		throw new Error("Invalid input");
+	}
+
+	return numbers.reduce((acc, num) => acc + num, 0);
 }
