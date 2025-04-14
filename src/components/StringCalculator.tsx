@@ -1,18 +1,29 @@
 export function add(input: string): number {
+  if (input === "") {
+    return 0;
+  }
 
-	if (input === "") {
-		return 0;
-	}
+  let delimiterRegex = /,|\n/;
 
-	if (!input.includes(",")) {
-		return Number(input);
-	}
+  if (input.startsWith("//")) {
+    const newLineIndex = input.indexOf("\n");
+    if (newLineIndex === -1) {
+      throw new Error(
+        "Invalid input: missing newline after delimiter declaration"
+      );
+    }
 
-	const numbers = input.split(/,|\n/).map(Number);
+    const delimiterSpec = input.substring(2, newLineIndex);
+    input = input.substring(newLineIndex + 1);
 
-	if (numbers.some(isNaN)) {
-		throw new Error("Invalid input");
-	}
+    delimiterRegex = new RegExp(escapeRegExp(delimiterSpec));
+  }
 
-	return numbers.reduce((acc, num) => acc + num, 0);
+  const numbers = input.split(delimiterRegex).map(Number);
+  
+  return numbers.reduce((sum, num) => sum + num, 0);
+}
+
+function escapeRegExp(text: string): string {
+  return text.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
