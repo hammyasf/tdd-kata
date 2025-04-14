@@ -25,8 +25,10 @@ export function add(input: string): number {
   if (negatives.length > 0) {
 	throw new Error("Negatives not allowed: " + negatives.join(", "));
   }
+
+  const validNumbers = numbers.filter((num) => num <= 1000);
   
-  return numbers.reduce((sum, num) => sum + num, 0);
+  return validNumbers.reduce((sum, num) => sum + num, 0);
 }
 
 function escapeRegExp(text: string): string {

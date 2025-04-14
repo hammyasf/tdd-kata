@@ -30,4 +30,9 @@ describe("StringCalculator", () => {
     expect(() => add("1,-2,3")).toThrowError("Negatives not allowed: -2");
     expect(() => add("1,-2,-3")).toThrowError("Negatives not allowed: -2, -3");
   });
+
+  it("ignores numbers greater than 1000", () => {
+	expect(add("1001,2")).toBe(2);
+	expect(add("1000,2")).toBe(1002);
+  });
 });
